@@ -120,6 +120,41 @@
           }
         }
       }
+    },
+    "NgxAttendanceLibrary": {
+      "projectType": "library",
+      "root": "projects/ngx-attendance-library",
+      "sourceRoot": "projects/ngx-attendance-library/src",
+      "prefix": "Ngx",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ngx-attendance-library/tsconfig.lib.json",
+            "project": "projects/ngx-attendance-library/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-attendance-library/src/test.ts",
+            "tsConfig": "projects/ngx-attendance-library/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-attendance-library/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-attendance-library/tsconfig.lib.json",
+              "projects/ngx-attendance-library/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }},
   "defaultProject": "NgxAttendanceCalendarLibrary"
 }

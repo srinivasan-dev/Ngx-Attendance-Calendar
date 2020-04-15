@@ -17,7 +17,15 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ngx-attendance-library": [
+        "dist/ngx-attendance-library"
+      ],
+      "ngx-attendance-library/*": [
+        "dist/ngx-attendance-library/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

@@ -1,0 +1,18 @@
+<div class="calendar-wrapper">
+    <div class="calendar">
+      <table >
+        <thead>
+          <tr>
+            <td class="table-bordered" *ngFor="let day of weekDayArr">{{day}}</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let week of monthArr">
+            <td class="table-bordered text-center" [hidden]="checkWeekVal(week.weekArr)" *ngFor="let day of week.weekArr" [ngStyle]="{'background-color':getColor(day)}">
+              <span *ngIf="day > 0">{{day}}</span>
+              </td>
+          </tr>
+          </tbody>
+      </table>
+    </div>
+  </div>
