@@ -2,7 +2,7 @@ import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 
 @Component({
   // selector: 'Ngx-NgxAttendanceLibrary',
-  selector: 'Ngx-AttendanceLibrary',
+  selector: 'Ngx-AttendanceCalendar',
   templateUrl: './ngx-attendance-library.component.html',
   styleUrls: [ './ngx-attendance-library.component.css' ]
 
