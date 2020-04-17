@@ -1,6 +1,23 @@
 {
   "name": "ngx-attendance-library",
   "version": "1.0.2",
+  "description": "attendance calendar for angular apps (angular 8 recommended)",
+  "author": "srinivasan",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/srinivasanacg/Ngx-Attendance-Calendar"
+  },
+  "keywords": [
+    "angular",
+    "attendance",
+    "calendar",
+    "javascript",
+    "month calendar",
+    "typescript",
+    "es6",
+    "calendar package",
+    "calendar plugin"
+  ],
   "peerDependencies": {
     "@angular/common": "^8.2.14",
     "@angular/core": "^8.2.14"

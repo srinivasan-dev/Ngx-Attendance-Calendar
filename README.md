@@ -1,119 +1,209 @@
 # NgxAttendanceCalendarLibrary
 
 
-* A simple typeahead `directive` to be used with Angular Material input and matAutocomplete component.
-* This directives enhances the funtionality of Angular Material `matAutocomplete` component and is recommended that it is used with it.
-* However, this directive can be used with `any other` autocomplete component.
-* It is developed using `Angular >=6.0.0` and its newly introduced `ng g library` schematics.
-* This library is part of MatTypeahead project and it is generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.3.
-* Library location: `projects/ngx-mat-typeahead` directory of this repository.
+* A simple calendar `component` to be used with Angular component.
+* This component enhances the funtionality of Angular attendance calendar component and is recommended that it is used with angular 6+ apps.
+* It is developed using `Angular >=8.0.0` and its newly introduced `ng g library` schematics.
+* This library is generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.0.
+* Library location: `projects/ngx-attendace-library` directory of this repository.
 
 ## Examples/Demo
 
-* A simple Example can be found under `src/app` directory of this repository. It uses `json-server` to have a url and filter functionality.
+* stackblitz https://stackblitz.com/edit/ngx-attendance-library
 
 ## Installation
 
-`npm i ngx-mat-typeahead`
+`npm i ngx-attendance-library --save`
 
 ## API
 
-`import { NgxMatTypeaheadModule } from 'ngx-mat-typeahead'`<br>
-`selector: NgxMatTypeahead`
+`import { NgxAttendanceLibraryModule } from 'ngx-attendance-library''`<br>
+`selector: Ngx-AttendanceCalendar`
 
 ### @Inputs()
 
-| Input            | Type    | Required                   | Description                                                                                               |
-| ---------------- | ------- | -------------------------- | --------------------------------------------------------------------------------------------------------- |
-| apiURL           | string  | **YES**                    | the url of a remote server that supports http/jsonp calls.                                                |
-| delayTime        | number  | Optional, default: 300     | the debounce time for this request.                                                                       |
-| urlParams        | object  | Optional, default: {}      | { key: string, value: any} object as additional parameters                                                |
-| urlQueryParam    | string  | Optional, default: 'query' | a string value which is used a query parameter in the url. Ex: `http://localhost:3000/countries?query='c` |
-| apiMethod        | string  | Optional, default: 'get'   | the http/jsonp method to be used.                                                                         |
-| apiType          | string  | Optional, default: 'http'  | http or jsonp method types.                                                                               |
-| callbackFuncName | string  | Optional                   | a string value for the callback query parameter.                                                          |
-| allowEmptyString | boolean | Optional, default: true    | if true, it allows empty strings to pass and invoke search                                                |
+| Input          | Type   | Required | Description                | 
+| -------------- |:------:| --------:| --------------------------:|
+| monthData      | string | **YES**  | selected month             |
+| yearData       | string | **YES**  | selected year              |
+| attendanceData | object | **YES**  | attendance data like below |
 
-### @Outputs()
 
-| Output           | Type       | Required | Description                                            |
-| ---------------- | ---------- | -------- | ------------------------------------------------------ |
-| filteredDataList | Array<any> | **YES**  | emits filtered data list depending on the search term. |
+
+### attendanceData example
+```typescript
+[
+    { 
+      "year": "2020",
+      "month": "apr",
+      "data": [
+          {
+            "date": 1,
+            "status": "present"
+          },
+          {
+            "date": 2,
+            "status": "abscent"
+          },
+          {
+            "date": 3,
+            "status": "present"
+          },
+          {
+            "date": 4,
+            "status": "woff"
+          },
+          {
+            "date": 5,
+            "status": "woff"
+          },
+          {
+            "date": 6,
+            "status": "present"
+          },
+          {
+            "date": 7,
+            "status": "present"
+          },
+          {
+            "date": 8,
+            "status": "present"
+          },
+          {
+            "date": 9,
+            "status": "present"
+          },
+          {
+            "date": 10,
+            "status": "present"
+          },
+          {
+            "date": 11,
+            "status": "woff"
+          },
+          {
+            "date": 12,
+            "status": "woff"
+          },
+          {
+            "date": 13,
+            "status": "req"
+          }
+        ] 
+    }
+  ]
+```
 
 ## Usage
 
-1) Register the `NgxMatTypeaheadModule` in your app module.
- > `import { NgxMatTypeaheadModule } from 'ngx-mat-typeahead'`
+1) Register the `NgxAttendanceLibraryModule` in your app module.
+ > `import { NgxAttendanceLibraryModule } from 'ngx-attendance-library'`
 
  ```typescript
- import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatAutocompleteModule, MatInputModule } from '@angular/material';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgxMatTypeaheadModule } from 'ngx-mat-typeahead';
-import { AppComponent } from './app.component';
+ import { BrowserModule } from '@angular/platform-browser';
+ import { CommonModule } from '@angular/common';
+ import { NgxAttendanceLibraryModule } from 'ngx-attendance-library';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [...],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatAutocompleteModule,
-    HttpClientModule,
-    NgxMatTypeaheadModule
+    CommonModule,
+    NgxAttendanceLibraryModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [...]
 })
 export class AppModule {}
  ```
 
- 2) Use the directive `(NgxMatTypeahead)` in your component.
+ 2) go to your component.
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { AppService } from './app.service';
 @Component({
   selector: 'mat-ta-root',
-  template: `<h3>NgxMatTypeahead demo app using Angular Material</h3>
-<div [formGroup]="testFormGroup">
-  <mat-form-field>
-    <input matInput NgxMatTypeahead [apiURL]="url" [urlQueryParam]="queryParam" (filteredDataList)="getFilteredSuggestions($event)"
-      formControlName="country" [matAutocomplete]="countryAuto" placeholder="Choose Country">
-    <mat-autocomplete #countryAuto="matAutocomplete">
-      <mat-option *ngFor="let country of countries" [value]="country">
-        {{country}}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-</div>
+  template: `
+  <Ngx-AttendanceCalendar [monthData]="selectedMonth" [yearData]="selectedyear" [attendanceData]="myAttData"></Ngx-AttendanceCalendar>
 `,
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
   // Paramteres for the input type are defined below. The url is generated using `json-server`.
   // Please run your own instance of the json-server to use the the below url.
-  queryParam = 'q';
-  url = 'http://localhost:3000/countries';
+  selectedMonth:string = "apr"
+  selectedyear:string = "2020"
+  myAttData = [
+  { 
+    "year": "2020",
+    "month": "apr",
+    "data": [
+        {
+          "date": 1,
+          "status": "present"
+        },
+        {
+          "date": 2,
+          "status": "abscent"
+        },
+        {
+          "date": 3,
+          "status": "present"
+        },
+        {
+          "date": 4,
+          "status": "woff"
+        },
+        {
+          "date": 5,
+          "status": "woff"
+        },
+        {
+          "date": 6,
+          "status": "present"
+        },
+        {
+          "date": 7,
+          "status": "present"
+        },
+        {
+          "date": 8,
+          "status": "present"
+        },
+        {
+          "date": 9,
+          "status": "present"
+        },
+        {
+          "date": 10,
+          "status": "present"
+        },
+        {
+          "date": 11,
+          "status": "woff"
+        },
+        {
+          "date": 12,
+          "status": "woff"
+        },
+        {
+          "date": 13,
+          "status": "req"
+        }
+      ] 
+  }
+];
 
-  constructor(private appService: AppService) {}
 
-  testFormGroup: FormGroup = new FormGroup({ country: new FormControl('') });
-  countries: Array<string> = [];
+  constructor() {}
+
+
 
   ngOnInit() {
-    this.countries = ["United States", "United Kingdom", "China", "Japan", "India", "Russia", "Canada", "Brazil"];
+    
   }
 
-  getFilteredSuggestions(filteredDataLst: Array<any>) {
-    this.countries = [...filteredDataLst];
-  }
+
 }
 ```
 
@@ -121,16 +211,15 @@ export class AppComponent implements OnInit {
 
 * `npm i`
 * Run `ng serve` for a dev server and running the demo app. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-* The demo app uses `json-server` module for enabling the url and filter funtionality.
 
-## Build the NgxMatTypeahead module
+## Build the NgxAttendanceLibrary module
 
-Run `ng build NgxMatTypeahead` to build the library. The build artifacts will be stored in the `dist/ngx-mat-typeahead` directory. Use the `--prod` flag for a production build.
+Run `ng build NgxAttendanceLibrary` to build the library. The build artifacts will be stored in the `dist/ngx-attendance-library` directory. Use the `--prod` flag for a production build.
 
 ## Running unit tests
 
-Run `ng test NgxMatTypeahead` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `ng test NgxAttendanceLibrary` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 ## Credits
 
-This project is based on [ngx-typeahead](https://github.com/orizens/ngx-typeahead). I want to thank Oren Farhi from [Orizens](http://orizens.com) for open sourcing his project as it helped me to write my first simple Angular library. Also want to thanks entire [Angular](https://angular.io) team for creating this awesome framework.
+This project is based on [Ngx-Attendance-Calendar](https://github.com/srinivasanacg/Ngx-Attendance-Calendar). I want to thank entire [Angular](https://angular.io) team for creating this awesome framework.

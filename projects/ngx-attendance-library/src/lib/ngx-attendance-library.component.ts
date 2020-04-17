@@ -180,6 +180,8 @@ calendarInit(){
                   return '#ef9a9a';
                 case 'woff':
                   return '#ccc';
+                case 'req':
+                  return '#F6F185';  
               }
         }
       }
